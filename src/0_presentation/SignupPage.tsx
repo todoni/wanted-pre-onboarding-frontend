@@ -1,25 +1,21 @@
 import React, { useState } from "react";
-import { useAuthenticate } from "../1_application/authenticate";
-import { Navigate } from "react-router-dom";
+import { signUp } from "../1_application/authentication";
+import { UserRepository } from "../2_domain/UserRepository";
+import { HttpUserRepository } from "../3_infrastructure/HttpUserRepository";
 
 const SignupPage = () => {
   const [email, setEmail] = useState<Email>("");
   const [password, setPassword] = useState<Password>("");
   const [disabled, setDisabled] = useState(false);
-
-  const { user, authenticate } = useAuthenticate();
-  if (!!user) return <Navigate to="/" />;
-
+  const userRepository = HttpUserRepository();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setDisabled(true);
     event.preventDefault();
-    await authenticate(email, password)
-      .then((e) => {
-        alert("success");
-      })
-      .catch((e) => {
-        alert(e);
-      });
+    try {
+      await signUp({ email, password }, userRepository);
+    } catch (error) {
+      console.log(error);
+    }
     setDisabled(false);
   };
 
