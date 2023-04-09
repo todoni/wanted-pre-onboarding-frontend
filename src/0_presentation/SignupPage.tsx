@@ -1,36 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAuthenticate } from "../1_application/authenticate";
+import { Navigate } from "react-router-dom";
 
 const SignupPage = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const [email, setEmail] = useState<Email>("");
+  const [password, setPassword] = useState<Password>("");
+  const [disabled, setDisabled] = useState(false);
+
+  const { user, authenticate } = useAuthenticate();
+  if (!!user) return <Navigate to="/" />;
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setDisabled(true);
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    fetch(form.action, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        console.log(response);
+    await authenticate(email, password)
+      .then((e) => {
+        alert("success");
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((e) => {
+        alert(e);
       });
+    setDisabled(false);
   };
 
   return (
-    <div>
-      <form
-        action="https://www.pre-onboarding-selection-task.shop/auth/signup"
-        method="POST"
-        onSubmit={handleSubmit}
-      >
-        <input data-testid="email-input" type="email" required></input>
-        <input data-testid="password-input" type="password" required></input>
-        <button data-testid="signup-button" type="submit">
-          signup
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        data-testid="email-input"
+        type="text"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      ></input>
+      <input
+        data-testid="password-input"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      ></input>
+      <button data-testid="signup-button" type="submit" disabled={disabled}>
+        {disabled ? "loading..." : "signup"}
+      </button>
+    </form>
   );
 };
 

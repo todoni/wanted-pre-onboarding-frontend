@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SigninPage from "./pages/SignupPage";
-import SignupPage from "./pages/SigninPage";
-import TodoPage from "./pages/TodoPage";
+import SigninPage from "./0_presentation/SigninPage";
+import SignupPage from "./0_presentation/SignupPage";
+import TodoPage from "./0_presentation/TodoPage";
 import Home from "./0_presentation/Home";
 
 function App() {
