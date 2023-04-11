@@ -25,8 +25,8 @@ export const HttpUserRepository = (): UserRepository => {
       .catch((err) => alert(err.response.data.message));
   };
 
-  const signIn = async (user: User): Promise<void> => {
-    const response = await axios({
+  const signIn = async (user: User, onSuccess: () => void): Promise<void> => {
+    return await axios({
       url: `${API_URL}/auth/signin`,
       method: "POST",
       data: {
@@ -34,14 +34,12 @@ export const HttpUserRepository = (): UserRepository => {
         password: user.password,
       },
       headers: { "Content-Type": "application/json" },
-    });
-
-    if (response.status !== 200) {
-      throw new Error("Failed to sign up");
-    }
-
-    const data = await response.data;
-    localStorage.setItem("token", data.token);
+    })
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        onSuccess();
+      })
+      .catch((error) => alert(error.response.data.message));
   };
 
   return { signUp, signIn };
