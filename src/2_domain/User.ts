@@ -12,13 +12,10 @@ const isPasswordValid = (password: string): boolean => {
   return password.length >= 8;
 };
 
-export const validateUser = (user: User): void => {
+export const validateUser = (user: User): boolean => {
   console.log(user);
-  if (!isEmailValid(user.email)) {
-    throw new Error("Invalid email format");
+  if (!isEmailValid(user.email) || !isPasswordValid(user.password)) {
+    return true;
   }
-
-  if (!isPasswordValid(user.password)) {
-    throw new Error("Password must be at least 8 characters long");
-  }
+  return false;
 };

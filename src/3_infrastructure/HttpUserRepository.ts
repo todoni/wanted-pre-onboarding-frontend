@@ -5,8 +5,8 @@ import axios from "axios";
 export const HttpUserRepository = (): UserRepository => {
   const API_URL = "https://www.pre-onboarding-selection-task.shop";
 
-  const signUp = async (user: User): Promise<void> => {
-    const response = await axios({
+  const signUp = async (user: User, onSuccess: () => void): Promise<void> => {
+    return await axios({
       url: `${API_URL}/auth/signup`,
       method: "POST",
       data: {
@@ -17,11 +17,12 @@ export const HttpUserRepository = (): UserRepository => {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
-    });
-
-    if (response.status !== 201) {
-      throw new Error("Failed to sign up");
-    }
+    })
+      .then(() => {
+        alert("회원가입이 완료 되었습니다.");
+        onSuccess();
+      })
+      .catch((err) => alert(err.response.data.message));
   };
 
   const signIn = async (user: User): Promise<void> => {
