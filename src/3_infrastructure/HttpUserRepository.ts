@@ -36,7 +36,7 @@ export const HttpUserRepository = (): UserRepository => {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.access_token);
         onSuccess();
       })
       .catch((error) => alert(error.response.data.message));
