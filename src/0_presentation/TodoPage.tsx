@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { TodoService } from "../1_application/todoService";
 import { Todo } from "../2_domain/Todo";
 import TodoForm from "./TodoForm";
-import { useRef } from "react";
+import { useAuth } from "../1_application/Auth";
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
