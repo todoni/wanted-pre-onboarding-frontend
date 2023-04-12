@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { signUp } from "../1_application/authentication";
 import { validateUser } from "../2_domain/User";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../1_application/Auth";
 
 const SignupPage = () => {
   const [email, setEmail] = useState<Email>("");
   const [password, setPassword] = useState<Password>("");
-  const { signup } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  if (isAuthenticated()) return <Navigate to="/todo" />;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await signup({ email, password }, () => navigate("/signin"));
