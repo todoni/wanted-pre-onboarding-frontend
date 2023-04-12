@@ -3,12 +3,14 @@ import { TodoService } from "../1_application/todoService";
 import { Todo } from "../2_domain/Todo";
 import TodoForm from "./TodoForm";
 import { useAuth } from "../1_application/Auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [editTodo, setEditTodo] = useState<Todo | null>(null);
   const [editedTodo, setEditedTodo] = useState("");
-
+  const { logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const { getTodos, createTodo, updateTodo, deleteTodo } = TodoService();
   const fetchData = async () => {
     try {
@@ -20,18 +22,15 @@ const TodoPage = () => {
   };
 
   useEffect(() => {
+    if (!isAuthenticated()) return;
     fetchData();
-  }, []);
-
-  //useEffect(() => {}, [todos]);
+  }, [isAuthenticated]);
 
   const handleCreateTodo = async (newTodo: string) => {
     try {
       const todo = await createTodo(newTodo);
       console.log(todo);
       fetchData();
-      //const updatedTodos = await getTodos();
-      //setTodos(updatedTodos);
     } catch (error) {
       console.log(error);
     }
@@ -41,8 +40,6 @@ const TodoPage = () => {
     todo.isCompleted = !todo.isCompleted;
     await updateTodo(todo);
     fetchData();
-    //const updatedTodos = await getTodos();
-    //setTodos(updatedTodos);
   };
 
   const handleEditClick = (todo: Todo) => {
@@ -75,9 +72,16 @@ const TodoPage = () => {
     }
   };
 
+  const handleLogoutClick = () => {
+    logout();
+    navigate("/signin");
+  };
+
+  if (!isAuthenticated()) return <Navigate to="/signin" />;
   return (
     <div>
       <h1>Todo List</h1>
+      <button onClick={handleLogoutClick}>logout</button>
       <ul>
         {todos.length > 0 ? (
           todos.map((todo) => (
