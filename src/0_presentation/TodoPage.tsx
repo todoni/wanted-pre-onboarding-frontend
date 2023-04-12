@@ -9,7 +9,7 @@ const TodoPage = () => {
   const [editTodo, setEditTodo] = useState<Todo | null>(null);
   const [editedTodo, setEditedTodo] = useState("");
 
-  const { getTodos, createTodo, updateTodo } = TodoService();
+  const { getTodos, createTodo, updateTodo, deleteTodo } = TodoService();
   const fetchData = async () => {
     try {
       const todos = await getTodos();
@@ -55,6 +55,11 @@ const TodoPage = () => {
     setEditedTodo("");
   };
 
+  const handleDeleteClick = async (todo: Todo) => {
+    await deleteTodo(todo);
+    fetchData();
+  };
+
   const handleSaveClick = async () => {
     if (editTodo) {
       try {
@@ -80,6 +85,11 @@ const TodoPage = () => {
               {editTodo === todo ? (
                 <>
                   <input
+                    type="checkbox"
+                    checked={todo.isCompleted}
+                    onChange={() => handleCheckboxChange(todo)}
+                  />
+                  <input
                     type="text"
                     value={editedTodo}
                     onChange={(e) => setEditedTodo(e.target.value)}
@@ -101,7 +111,12 @@ const TodoPage = () => {
                   >
                     수정
                   </button>
-                  <button data-testid="delete-button">삭제</button>
+                  <button
+                    data-testid="delete-button"
+                    onClick={() => handleDeleteClick(todo)}
+                  >
+                    삭제
+                  </button>
                 </>
               )}
             </li>

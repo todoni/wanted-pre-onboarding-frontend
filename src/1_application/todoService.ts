@@ -18,5 +18,8 @@ export const TodoService = () => {
     await todoRepository.update(todo);
   };
 
-  return { getTodos, createTodo, updateTodo };
+  const deleteTodo = async (todo: Todo): Promise<void> => {
+    await todoRepository.deleteById(todo);
+  };
+  return { getTodos, createTodo, updateTodo, deleteTodo };
 };
