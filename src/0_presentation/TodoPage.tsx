@@ -13,12 +13,16 @@ import React from "react";
 const TodoPage = () => {
   const { logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { todos, editTodo, handleCreateTodo } = useTodo();
+  const { todos, fetchData, handleCreateTodo } = useTodo();
 
   const handleLogoutClick = () => {
     logout();
     navigate("/signin");
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (!isAuthenticated()) return <Navigate to="/signin" />;
   return (
