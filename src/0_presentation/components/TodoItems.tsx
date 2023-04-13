@@ -6,40 +6,11 @@ interface TodoProps {
   todo: Todo;
 }
 
-const TodoEditItem = ({ todo }: TodoProps) => {
-  const {
-    editTodo,
-    editedTodo,
-    fetchData,
-    handleCheckboxChange,
-    handleSaveClick,
-    handleCancelClick,
-    handleInputChange,
-  } = useTodo();
-
-  return (
-    <>
-      <input
-        type="checkbox"
-        checked={todo.isCompleted}
-        onChange={() => handleCheckboxChange(todo)}
-      />
-      <input
-        type="text"
-        value={editedTodo}
-        onChange={handleInputChange}
-      ></input>
-      <button onClick={handleSaveClick}>저장</button>
-      <button onClick={handleCancelClick}>취소</button>
-    </>
-  );
-};
-
 const TodoNormalItem = ({ todo }: TodoProps) => {
   const { handleCheckboxChange, handleEditClick, handleDeleteClick } =
     useTodo();
   return (
-    <>
+    <li key={todo.id}>
       <input
         type="checkbox"
         checked={todo.isCompleted}
@@ -55,8 +26,8 @@ const TodoNormalItem = ({ todo }: TodoProps) => {
       >
         삭제
       </button>
-    </>
+    </li>
   );
 };
 
-export { TodoEditItem, TodoNormalItem };
+export default React.memo(TodoNormalItem);
