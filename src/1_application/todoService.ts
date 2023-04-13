@@ -1,4 +1,3 @@
-import { TodoRepository } from "../2_domain/TodoRepository";
 import { HttpTodoRepository } from "../3_infrastructure/HttpTodoRepository";
 import { Todo } from "../2_domain/Todo";
 
@@ -10,8 +9,9 @@ export const TodoService = () => {
     return response.data;
   };
 
-  const createTodo = async (todo: string): Promise<void> => {
-    await todoRepository.create(todo);
+  const createTodo = async (todo: string): Promise<Todo> => {
+    const response = await todoRepository.create(todo);
+    return response;
   };
 
   const updateTodo = async (todo: Todo): Promise<void> => {

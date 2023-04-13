@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { TodoService } from "../1_application/todoService";
 import { Todo } from "../2_domain/Todo";
-import TodoForm from "./TodoForm";
+import TodoForm from "./components/TodoForm";
 import { useAuth } from "../1_application/Auth";
 import { Navigate, useNavigate } from "react-router-dom";
-import TodoNormalItem from "./components/TodoItems";
+import TodoNormalItem from "./components/TodoNormaltem";
 import TodoEditItem from "./components/TodoEditItem";
 import { useTodo } from "../1_application/todo";
 import TodoList from "./components/TodoList";

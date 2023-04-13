@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { Todo } from "../2_domain/Todo";
+import { Todo } from "../../2_domain/Todo";
 
 interface Props {
   onCreate: (todo: string) => void;
