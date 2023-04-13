@@ -49,10 +49,6 @@ const TodoProvider = ({ children }: Props) => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const handleCreateTodo = async (newTodo: string) => {
     try {
       await createTodo(newTodo);
