@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from "axios";
 export const HttpTodoRepository = (): TodoRepository => {
   const API_URL = "https://www.pre-onboarding-selection-task.shop";
 
-  const create = async (todo: string): Promise<void> => {
+  const create = async (todo: string): Promise<Todo> => {
     const access_token = localStorage.getItem("token");
     console.log(access_token);
     return await axios({
@@ -34,7 +34,7 @@ export const HttpTodoRepository = (): TodoRepository => {
     });
   };
 
-  const update = async (todo: Todo): Promise<void> => {
+  const update = async (todo: Todo): Promise<Todo> => {
     const access_token = localStorage.getItem("token");
     return await axios({
       url: `${API_URL}/todos/${todo.id}`,

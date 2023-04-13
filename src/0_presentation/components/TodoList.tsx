@@ -1,7 +1,7 @@
 import React from "react";
 import { useTodo } from "../../1_application/todo";
 import TodoEditItem from "./TodoEditItem";
-import TodoNormalItem from "./TodoItems";
+import TodoNormalItem from "./TodoNormaltem";
 
 const TodoList = () => {
   const { todos, editTodo } = useTodo();

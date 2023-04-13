@@ -6,7 +6,3 @@ export type Todo = {
   isCompleted: boolean;
   userId: number;
 };
-
-export type TodoList = {
-  todos: Todo[];
-};
