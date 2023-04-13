@@ -2,9 +2,9 @@ import { TodoRepository } from "../2_domain/TodoRepository";
 import { HttpTodoRepository } from "../3_infrastructure/HttpTodoRepository";
 import { Todo } from "../2_domain/Todo";
 
-const todoRepository = HttpTodoRepository();
-
 export const TodoService = () => {
+  const todoRepository = HttpTodoRepository();
+
   const getTodos = async (): Promise<Todo[]> => {
     const response = await todoRepository.get();
     return response.data;

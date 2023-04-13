@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./1_application/Auth";
+import { TodoProvider } from "./1_application/todo";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <TodoProvider>
+        <App />
+      </TodoProvider>
     </AuthProvider>
   </React.StrictMode>
 );

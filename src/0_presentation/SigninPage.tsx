@@ -14,7 +14,7 @@ const SigninPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await login({ email, password }, () => navigate("/todo"));
-    navigate("/todo");
+    //navigate("/todo");
     //await signIn({ email, password }, () => navigate("/todo"));
   };
 
