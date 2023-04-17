@@ -8,9 +8,7 @@ interface TodoProps {
 
 const TodoEditItem = ({ todo }: TodoProps) => {
   const {
-    editTodo,
     editedTodo,
-    fetchData,
     handleCheckboxChange,
     handleSaveClick,
     handleCancelClick,
@@ -26,6 +24,7 @@ const TodoEditItem = ({ todo }: TodoProps) => {
       />
       <input
         type="text"
+        data-testid="new-todo-input"
         value={editedTodo}
         onChange={handleInputChange}
       ></input>

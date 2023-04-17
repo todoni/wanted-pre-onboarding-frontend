@@ -26,11 +26,14 @@ const TodoPage = () => {
 
   if (!isAuthenticated()) return <Navigate to="/signin" />;
   return (
-    <div>
+    <div className="common">
       <h1>Todo List</h1>
-      <button onClick={handleLogoutClick}>logout</button>
+
       {todos.length > 0 ? <TodoList /> : <p>할 일이 없습니다</p>}
       <TodoForm onCreate={handleCreateTodo} />
+      <button className="logout" onClick={handleLogoutClick}>
+        logout
+      </button>
     </div>
   );
 };

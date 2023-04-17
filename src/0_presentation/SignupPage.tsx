@@ -15,27 +15,32 @@ const SignupPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        data-testid="email-input"
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      ></input>
-      <input
-        data-testid="password-input"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      ></input>
-      <button
-        data-testid="signup-button"
-        type="submit"
-        disabled={validateUser({ email, password })}
-      >
-        signup
-      </button>
-    </form>
+    <div className="common">
+      <h1>SignUp</h1>
+      <form onSubmit={handleSubmit}>
+        <label>Email:</label>
+        <input
+          data-testid="email-input"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
+        <label>Password:</label>
+        <input
+          data-testid="password-input"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
+        <button
+          data-testid="signup-button"
+          type="submit"
+          disabled={validateUser({ email, password })}
+        >
+          signup
+        </button>
+      </form>
+    </div>
   );
 };
 
