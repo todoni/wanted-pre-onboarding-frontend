@@ -1,16 +1,18 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useTodo } from "../../1_application/todo";
 import { Todo } from "../../2_domain/Todo";
 
 interface Props {
   onCreate: (todo: string) => void;
 }
 
-const TodoForm = ({ onCreate }: Props) => {
+const TodoForm = () => {
   const [todo, setTodo] = useState("");
+  const { handleCreateTodo } = useTodo();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onCreate(todo);
+    handleCreateTodo(todo);
     setTodo("");
   };
 

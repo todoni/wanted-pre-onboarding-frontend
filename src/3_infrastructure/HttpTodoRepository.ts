@@ -7,7 +7,6 @@ export const HttpTodoRepository = (): TodoRepository => {
 
   const create = async (todo: string): Promise<Todo> => {
     const access_token = localStorage.getItem("token");
-    console.log(access_token);
     return await axios({
       url: `${API_URL}/todos`,
       method: "POST",
@@ -19,7 +18,14 @@ export const HttpTodoRepository = (): TodoRepository => {
         Authorization: `Bearer ${access_token}`,
         "Content-Type": "application/json",
       },
-    });
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        return null;
+      });
   };
 
   const get = async (): Promise<AxiosResponse<Todo[]>> => {
@@ -48,7 +54,14 @@ export const HttpTodoRepository = (): TodoRepository => {
         Authorization: `Bearer ${access_token}`,
         "Content-Type": "application/json",
       },
-    });
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        return null;
+      });
   };
 
   const deleteById = async (todo: Todo): Promise<void> => {
@@ -60,7 +73,12 @@ export const HttpTodoRepository = (): TodoRepository => {
         "Access-Control-Allow-Origin": "*",
         Authorization: `Bearer ${access_token}`,
       },
-    });
+    })
+      .then(() => {})
+      .catch((error) => {
+        alert(error.response.data.message);
+        throw new Error("Failed to delete todo.");
+      });
   };
 
   return { create, get, update, deleteById };

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Todo } from "../2_domain/Todo";
 import { TodoService } from "../1_application/todoService";
 
@@ -49,10 +49,29 @@ const TodoProvider = ({ children }: Props) => {
     }
   };
 
+  const handleUpdateTodo = async (updatedTodo: Todo) => {
+    try {
+      const updatedTodoData = await updateTodo(updatedTodo);
+      if (updatedTodoData) {
+        const updatedTodoIndex = todos.findIndex(
+          (todo) => todo.id === updatedTodoData.id
+        );
+        const newTodos = [...todos];
+        newTodos[updatedTodoIndex] = updatedTodoData;
+        setTodos(newTodos);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCreateTodo = async (newTodo: string) => {
     try {
-      await createTodo(newTodo);
-      fetchData();
+      const newTodoData = await createTodo(newTodo);
+      console.log(newTodoData);
+      if (newTodoData) {
+        setTodos((prevState) => [...prevState, newTodoData]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -64,8 +83,7 @@ const TodoProvider = ({ children }: Props) => {
 
   const handleCheckboxChange = async (todo: Todo) => {
     todo.isCompleted = !todo.isCompleted;
-    await updateTodo(todo);
-    fetchData();
+    await handleUpdateTodo(todo);
   };
 
   const handleEditClick = (todo: Todo) => {
@@ -79,21 +97,20 @@ const TodoProvider = ({ children }: Props) => {
   };
 
   const handleDeleteClick = async (todo: Todo) => {
-    await deleteTodo(todo);
-    fetchData();
+    try {
+      await deleteTodo(todo);
+      setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todo.id));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSaveClick = async () => {
     if (editTodo) {
-      try {
-        const updatedTodo = { ...editTodo, todo: editedTodo };
-        await updateTodo(updatedTodo);
-        setEditTodo(null);
-        setEditedTodo("");
-        fetchData();
-      } catch (error) {
-        console.log(error);
-      }
+      const updatedTodo = { ...editTodo, todo: editedTodo };
+      await handleUpdateTodo(updatedTodo);
+      setEditTodo(null);
+      setEditedTodo("");
     }
   };
 

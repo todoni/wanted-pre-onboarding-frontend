@@ -13,7 +13,7 @@ import React from "react";
 const TodoPage = () => {
   const { logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { todos, fetchData, handleCreateTodo } = useTodo();
+  const { todos, fetchData } = useTodo();
 
   const handleLogoutClick = () => {
     logout();
@@ -28,9 +28,8 @@ const TodoPage = () => {
   return (
     <div className="common">
       <h1>Todo List</h1>
-
       {todos.length > 0 ? <TodoList /> : <p>할 일이 없습니다</p>}
-      <TodoForm onCreate={handleCreateTodo} />
+      <TodoForm />
       <button className="logout" onClick={handleLogoutClick}>
         logout
       </button>
