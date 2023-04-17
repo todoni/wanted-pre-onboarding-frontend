@@ -21,7 +21,7 @@ const TodoPage = () => {
       return;
     }
 
-    if (todos.length === 0 && isLoaded === false) {
+    if (isLoaded === false) {
       fetchData();
       setIsLoaded(true);
     }
