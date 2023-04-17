@@ -1,19 +1,15 @@
-import { useState, useEffect } from "react";
-import { TodoService } from "../1_application/todoService";
-import { Todo } from "../2_domain/Todo";
-import TodoForm from "./components/TodoForm";
-import { useAuth } from "../1_application/Auth";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import TodoNormalItem from "./components/TodoNormaltem";
-import TodoEditItem from "./components/TodoEditItem";
-import { useTodo } from "../1_application/todo";
+import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import React from "react";
+import { useAuth } from "../1_application/Auth";
+import { useTodo } from "../1_application/todo";
 
 const TodoPage = () => {
   const { logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { todos, fetchData } = useTodo();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleLogoutClick = () => {
     logout();
@@ -21,8 +17,11 @@ const TodoPage = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (todos.length === 0 && isLoaded === false) {
+      fetchData();
+      setIsLoaded(true);
+    }
+  }, [todos, fetchData, isLoaded]);
 
   if (!isAuthenticated()) return <Navigate to="/signin" />;
   return (
