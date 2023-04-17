@@ -24,12 +24,16 @@ const TodoEditItem = ({ todo }: TodoProps) => {
       />
       <input
         type="text"
-        data-testid="new-todo-input"
+        data-testid="modify-input"
         value={editedTodo}
         onChange={handleInputChange}
       ></input>
-      <button onClick={handleSaveClick}>저장</button>
-      <button onClick={handleCancelClick}>취소</button>
+      <button data-testid="submit-button" onClick={handleSaveClick}>
+        제출
+      </button>
+      <button data-testid="cancel-button" onClick={handleCancelClick}>
+        취소
+      </button>
     </li>
   );
 };

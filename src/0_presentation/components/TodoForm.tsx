@@ -20,8 +20,15 @@ const TodoForm = ({ onCreate }: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={todo} onChange={handleInputChange} />
-      <button type="submit">Add Todo</button>
+      <input
+        data-testid="new-todo-input"
+        type="text"
+        value={todo}
+        onChange={handleInputChange}
+      />
+      <button data-testid="new-todo-add-button" type="submit">
+        추가
+      </button>
     </form>
   );
 };
