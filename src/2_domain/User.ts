@@ -13,7 +13,6 @@ const isPasswordValid = (password: string): boolean => {
 };
 
 export const validateUser = (user: User): boolean => {
-  console.log(user);
   if (!isEmailValid(user.email) || !isPasswordValid(user.password)) {
     return true;
   }

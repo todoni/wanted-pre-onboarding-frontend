@@ -17,11 +17,15 @@ const TodoPage = () => {
   };
 
   useEffect(() => {
+    if (!isAuthenticated()) {
+      return;
+    }
+
     if (todos.length === 0 && isLoaded === false) {
       fetchData();
       setIsLoaded(true);
     }
-  }, [todos, fetchData, isLoaded]);
+  }, [isAuthenticated, todos, fetchData, isLoaded]);
 
   if (!isAuthenticated()) return <Navigate to="/signin" />;
   return (
