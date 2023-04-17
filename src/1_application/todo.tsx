@@ -49,29 +49,10 @@ const TodoProvider = ({ children }: Props) => {
     }
   };
 
-  const handleUpdateTodo = async (updatedTodo: Todo) => {
-    try {
-      const updatedTodoData = await updateTodo(updatedTodo);
-      if (updatedTodoData) {
-        const updatedTodoIndex = todos.findIndex(
-          (todo) => todo.id === updatedTodoData.id
-        );
-        const newTodos = [...todos];
-        newTodos[updatedTodoIndex] = updatedTodoData;
-        setTodos(newTodos);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleCreateTodo = async (newTodo: string) => {
     try {
-      const newTodoData = await createTodo(newTodo);
-      console.log(newTodoData);
-      if (newTodoData) {
-        setTodos((prevState) => [...prevState, newTodoData]);
-      }
+      await createTodo(newTodo);
+      fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +66,12 @@ const TodoProvider = ({ children }: Props) => {
 
   const handleCheckboxChange = async (todo: Todo) => {
     todo.isCompleted = !todo.isCompleted;
-    await handleUpdateTodo(todo);
+    try {
+      await updateTodo(todo);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleEditClick = (todo: Todo) => {
@@ -101,7 +87,7 @@ const TodoProvider = ({ children }: Props) => {
   const handleDeleteClick = async (todo: Todo) => {
     try {
       await deleteTodo(todo);
-      setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todo.id));
+      fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -109,10 +95,15 @@ const TodoProvider = ({ children }: Props) => {
 
   const handleSaveClick = async () => {
     if (editTodo) {
-      const updatedTodo = { ...editTodo, todo: editedTodo };
-      await handleUpdateTodo(updatedTodo);
-      setEditTodo(null);
-      setEditedTodo("");
+      try {
+        const updatedTodo = { ...editTodo, todo: editedTodo };
+        await updateTodo(updatedTodo);
+        fetchData();
+        setEditTodo(null);
+        setEditedTodo("");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
