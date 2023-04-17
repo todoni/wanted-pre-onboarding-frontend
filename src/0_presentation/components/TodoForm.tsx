@@ -1,10 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useTodo } from "../../1_application/todo";
-import { Todo } from "../../2_domain/Todo";
-
-interface Props {
-  onCreate: (todo: string) => void;
-}
 
 const TodoForm = () => {
   const [todo, setTodo] = useState("");

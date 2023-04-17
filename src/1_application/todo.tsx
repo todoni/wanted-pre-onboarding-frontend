@@ -13,7 +13,7 @@ type TodoContextType = {
   handleCancelClick: () => void;
   handleDeleteClick: (todo: Todo) => Promise<void>;
   handleSaveClick: () => Promise<void>;
-  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleEditInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TodoContext = createContext<TodoContextType>({
@@ -27,7 +27,7 @@ const TodoContext = createContext<TodoContextType>({
   handleCancelClick: () => {},
   handleDeleteClick: async (todo: Todo) => {},
   handleSaveClick: async () => {},
-  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => {},
+  handleEditInputChange: (event: React.ChangeEvent<HTMLInputElement>) => {},
 });
 
 type Props = {
@@ -77,7 +77,9 @@ const TodoProvider = ({ children }: Props) => {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEditedTodo(event.target.value);
   };
 
@@ -125,7 +127,7 @@ const TodoProvider = ({ children }: Props) => {
     handleCancelClick,
     handleDeleteClick,
     handleSaveClick,
-    handleInputChange,
+    handleEditInputChange,
   };
 
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;

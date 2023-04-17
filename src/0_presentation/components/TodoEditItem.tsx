@@ -12,7 +12,7 @@ const TodoEditItem = ({ todo }: TodoProps) => {
     handleCheckboxChange,
     handleSaveClick,
     handleCancelClick,
-    handleInputChange,
+    handleEditInputChange,
   } = useTodo();
 
   return (
@@ -26,7 +26,7 @@ const TodoEditItem = ({ todo }: TodoProps) => {
         type="text"
         data-testid="modify-input"
         value={editedTodo}
-        onChange={handleInputChange}
+        onChange={handleEditInputChange}
       ></input>
       <button data-testid="submit-button" onClick={handleSaveClick}>
         제출

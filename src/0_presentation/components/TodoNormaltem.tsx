@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Todo } from "../../2_domain/Todo";
 import { useTodo } from "../../1_application/todo";
 

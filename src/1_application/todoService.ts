@@ -1,5 +1,5 @@
-import { HttpTodoRepository } from "../3_infrastructure/HttpTodoRepository";
 import { Todo } from "../2_domain/Todo";
+import { HttpTodoRepository } from "../3_infrastructure/HttpTodoRepository";
 
 export const TodoService = () => {
   const todoRepository = HttpTodoRepository();
