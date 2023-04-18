@@ -1,46 +1,128 @@
-# Getting Started with Create React App
+# 원티드 프리온보딩 프론트엔드 사전 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+사전 과제 제출을 위한 레포지토리 입니다.
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+- #### [프로젝트 정보](./documents/information.md)
+- #### [프로젝트 일정표](./documents/schedule.md)
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📝 목차
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### [1. 프로젝트 실행](#%EF%B8%8F-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%8B%A4%ED%96%89)
 
-### `npm test`
+### [2. 프로젝트 설명](#%EF%B8%8F-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EB%AA%85)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### [3. 퇴고](#-%ED%87%B4%EA%B3%A0)
 
-### `npm run build`
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🏃‍♂️ 프로젝트 실행
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> 로컬에서 실행 시
 
-### `npm run eject`
+```SHELL
+$ npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+$ npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> 접속
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 로컬 - http://localhost:3000
+- 배포 - http://54.180.112.7:3000
 
-## Learn More
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🙋‍♂️ 프로젝트 설명
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 과제 요구사항과 개발을 진행하며 고려한 내역입니다.
+
+<br>
+
+### 🚀 지향점
+
+- 이번 프로젝트에 DDD를 적용 했습니다.
+- presentation, application, domain, infrastructure 네 개의 레이어로 분리하여 결합을 최소화 하면서 각자의 역할에 집중할 수 있게 했습니다.
+- any 키워드 사용을 금지하고 명확한 타입 추론만을 가능하게 했습니다.
+- 모호한 React Hook 사용으로 인한 warning을 발생하지 않게 했습니다.
+- 전역 상태관리를 활용해 불필요한 props drilling을 피하고 코드의 가독성을 높였습니다.
+
+<br>
+
+### 🧐 요구 사항
+
+- #### Sign up
+
+  - 이메일은 '@'를 포함 해야 합니다.
+  - 패스워드는 8자 이상이어야 합니다.
+  - 회원가입에 성공 시 '/signin' 페이지로 리다이렉트 해야 합니다.
+  - 로컬스토리지에 토큰이 있는 채로 '/signup' 페이지 접근 시 '/todo'로 리다이렉트 해야 합니다.
+
+- #### Sign In
+
+  - 이메일은 '@'를 포함 해야 합니다.
+  - 패스워드는 8자 이상이어야 합니다.
+  - 회원가입에 성공 시 '/todo' 페이지로 리다이렉트 해야 합니다.
+  - 로컬스토리지에 토큰이 있는 채로 '/signin' 페이지 접근 시 '/todo'로 리다이렉트 해야 합니다.
+
+- #### Todo
+
+  - Todo 리스트를 볼 수 있어야 합니다.
+  - Todo의 내용과 완료 상태가 표시 되어야 합니다.
+  - Todo를 추가할 수 있어야 합니다.
+  - Todo를 삭제할 수 있어야 합니다.
+  - Todo를 수정할 수 있어야 합니다.
+    - 완료 상태를 수정할 수 있어야 합니다.
+    - 내용 수정 시 내용의 형태를 input으로 변경하고, 입력된 내용으로 수정할 수 있어야 합니다.
+    - 내용 수정 취소 시 수정한 내용을 초기화하고 수정 모드를 비활성화 해야 합니다.
+
+- #### 배포
+
+  - 명시된 요구 사항은 아니지만 AWS EC2를 이용해 배포를 진행했습니다.
+
+- #### 로그아웃
+  - 테스트의 용이함을 위해 추가 기능을 구현했습니다.
+  - Todo 페이지 하단에 토큰을 삭제하고 로그인 페이지로 리다이렉트 해주는 버튼을 추가했습니다.
+
+<br>
+
+### 🧮 구현 과정
+
+- #### 유저 입력 유효성 검증
+
+  - signup과 signin에 공통된 유효성 검증 과정이 들어있으므로 이 규칙을 Domain 레이어에 작성해 상위 레이어에서 사용했습니다.
+  - input의 입력이 변할 때마다 값을 받아와 유효성을 검증 합니다.
+  - 이메일 검증은 Regex 정규표현식을 사용했습니다.
+
+- #### 인가에 따른 리다이렉트
+
+  - 로컬스토리지에서 토큰이 있는지 확인 하는 함수를 useAuth 훅을 통해 제공합니다.
+  - 각 페이지에서 함수 호출 후 조건에 맞게 리다이렉트 될 수 있게 했습니다.
+
+- #### Todo 리스트 렌더링
+  - 처음 페이지가 로드될 때 해당 유저의 Todo 리스트를 요청해서 렌더링 합니다.
+  - 변경 사항이 생기고 나면 GET 요청을 통해 데이터를 갱신합니다.
+    - 변경 사항이 있을 때 갖고있던 Todo 리스트의 State 변경을 이용할지 GET 요청을 통해 새로 불러올지에 대한 고려가 필요했습니다.
+    - API 요청을 최소화 하는 방향으로 처음에 개발 했으나 동기화 문제가 발생 하는 경우가 있었습니다.
+    - 이에 프론트에서 직접 데이터를 가공 하지 않고 API를 통해 최신 데이터를 제공 하는 것이 애플리케이션의 정확성과 일관성을 보장하고 코드의 간결성을 높여 유지보수에 용이할 것이라 판단했습니다.
+
+<br>
+
+## 👣 퇴고
+
+처음에 과제 안내를 읽었을 때는 간단하다고 생각했습니다. <br>
+지금까지는 프로젝트에 아키텍쳐 없이 일단 구현 위주로 개발을 했었는데, 이번에는 디자인패턴을 꼭 한번 적용해 보고 싶었습니다.<br>
+그러다 보니 처음에 간단해 보였지만 단순 기능 구현 이외에도 고려할 것이 많더라구요.<br>
+단순 기능 구현 외에도 추상화, 디자인패턴, 아키텍쳐 등 구현 외적으로도 노력을 기울여 봤습니다.<br>
+<br>
+
+개인적인 일정으로 많은 시간을 쏟지 못해서 좀 더 멋진 프로젝트로 완성 시키지 못한 게 아쉬웠습니다. 😔<br>
+그래도 이번에 처음으로 클린 아키텍쳐에 대한 고민을 해볼 수 있었고 이 프로젝트로 인해서 학습해가는 부분이 아주 많았습니다.<br>
+프로젝트 정말 재미있게 잘 진행했습니다! 좋은 기회 만들어 주셔서 감사합니다. 😄
