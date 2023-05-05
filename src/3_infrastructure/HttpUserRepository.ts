@@ -1,13 +1,13 @@
-import axios from "axios";
-import { UserRepository } from "../2_domain/UserRepository";
+import axios, { AxiosResponse } from "axios";
+import { IUserRepository } from "../2_domain/IUserRepository";
 import { User } from "../2_domain/User";
 
-export const HttpUserRepository = (): UserRepository => {
-  const API_URL = "https://www.pre-onboarding-selection-task.shop";
+class HttpUserRepository implements IUserRepository {
+  API_URL = "https://www.pre-onboarding-selection-task.shop";
 
-  const signUp = async (user: User, onSuccess: () => void): Promise<void> => {
+  signUp = async (user: User, onSuccess: () => void): Promise<void> => {
     return await axios({
-      url: `${API_URL}/auth/signup`,
+      url: `${this.API_URL}/auth/signup`,
       method: "POST",
       data: {
         email: user.email,
@@ -22,12 +22,14 @@ export const HttpUserRepository = (): UserRepository => {
         alert("회원가입이 완료 되었습니다.");
         onSuccess();
       })
-      .catch((err) => alert(err.response.data.message));
+      .catch((err: { response: { data: { message: string } } }) =>
+        alert(err.response.data.message)
+      );
   };
 
-  const signIn = async (user: User, onSuccess: () => void): Promise<void> => {
+  public signIn = async (user: User, onSuccess: () => void): Promise<void> => {
     return await axios({
-      url: `${API_URL}/auth/signin`,
+      url: `${this.API_URL}/auth/signin`,
       method: "POST",
       data: {
         email: user.email,
@@ -35,12 +37,14 @@ export const HttpUserRepository = (): UserRepository => {
       },
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => {
+      .then((response: AxiosResponse<{ access_token: string }>) => {
         localStorage.setItem("token", response.data.access_token);
         onSuccess();
       })
-      .catch((error) => alert(error.response.data.message));
+      .catch((error: { response: { data: { message: string } } }) =>
+        alert(error.response.data.message)
+      );
   };
+}
 
-  return { signUp, signIn };
-};
+export default HttpUserRepository;

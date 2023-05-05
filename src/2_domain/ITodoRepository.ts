@@ -1,7 +1,7 @@
 import { Todo } from "./Todo";
 import { AxiosResponse } from "axios";
 
-export interface TodoRepository {
+export interface ITodoRepository {
   create(todo: string): Promise<Todo>;
   get(): Promise<AxiosResponse<Todo[]>>;
   update(todo: Todo): Promise<Todo>;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { HttpUserRepository } from "../3_infrastructure/HttpUserRepository";
+import HttpUserRepository from "../3_infrastructure/HttpUserRepository";
 import { User } from "../2_domain/User";
 
 interface AuthContextType {
@@ -17,7 +17,7 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const userRepository = HttpUserRepository();
+  const userRepository = new HttpUserRepository();
 
   const isAuthenticated = (): boolean => {
     return !!localStorage.getItem("token");

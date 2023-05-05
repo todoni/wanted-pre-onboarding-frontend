@@ -1,14 +1,14 @@
-import { TodoRepository } from "../2_domain/TodoRepository";
+import { ITodoRepository } from "../2_domain/ITodoRepository";
 import { Todo } from "../2_domain/Todo";
 import axios, { AxiosResponse } from "axios";
 
-export const HttpTodoRepository = (): TodoRepository => {
-  const API_URL = "https://www.pre-onboarding-selection-task.shop";
+class HttpTodoRepository implements ITodoRepository {
+  API_URL = "https://www.pre-onboarding-selection-task.shop";
 
-  const create = async (todo: string): Promise<Todo> => {
+  public create = async (todo: string): Promise<Todo> => {
     const access_token = localStorage.getItem("token");
     return await axios({
-      url: `${API_URL}/todos`,
+      url: `${this.API_URL}/todos`,
       method: "POST",
       data: {
         todo: todo,
@@ -19,19 +19,19 @@ export const HttpTodoRepository = (): TodoRepository => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch((error: { response: { data: { message: string } } }) => {
         alert(error.response.data.message);
         return null;
       });
   };
 
-  const get = async (): Promise<AxiosResponse<Todo[]>> => {
+  public get = async (): Promise<AxiosResponse<Todo[]>> => {
     const access_token = localStorage.getItem("token");
     return await axios({
-      url: `${API_URL}/todos`,
+      url: `${this.API_URL}/todos`,
       method: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -40,10 +40,10 @@ export const HttpTodoRepository = (): TodoRepository => {
     });
   };
 
-  const update = async (todo: Todo): Promise<Todo> => {
+  public update = async (todo: Todo): Promise<Todo> => {
     const access_token = localStorage.getItem("token");
     return await axios({
-      url: `${API_URL}/todos/${todo.id}`,
+      url: `${this.API_URL}/todos/${todo.id}`,
       method: "PUT",
       data: {
         todo: todo.todo,
@@ -55,19 +55,19 @@ export const HttpTodoRepository = (): TodoRepository => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         return response.data;
       })
-      .catch((error) => {
+      .catch((error: { response: { data: { message: string } } }) => {
         alert(error.response.data.message);
         return null;
       });
   };
 
-  const deleteById = async (todo: Todo): Promise<void> => {
+  public deleteById = async (todo: Todo): Promise<void> => {
     const access_token = localStorage.getItem("token");
     return await axios({
-      url: `${API_URL}/todos/${todo.id}`,
+      url: `${this.API_URL}/todos/${todo.id}`,
       method: "DELETE",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -75,11 +75,11 @@ export const HttpTodoRepository = (): TodoRepository => {
       },
     })
       .then(() => {})
-      .catch((error) => {
+      .catch((error: { response: { data: { message: string } } }) => {
         alert(error.response.data.message);
         throw new Error("Failed to delete todo.");
       });
   };
+}
 
-  return { create, get, update, deleteById };
-};
+export default HttpTodoRepository;
